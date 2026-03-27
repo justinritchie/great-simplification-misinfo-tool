@@ -439,15 +439,15 @@
             ChatGPT
           </button>
           <button class="model-pill" data-model="gemini" style="--model-color: #4285F4; --model-bg: rgba(66,133,244,0.15);" onclick="selectModel('gemini')">
-            <span class="model-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#8AB4F8" opacity="0.2"/><path d="M12 2L2 12l10 10 10-10L12 2z" fill="url(#gemGrad)"/><defs><linearGradient id="gemGrad" x1="2" y1="12" x2="22" y2="12"><stop stop-color="#4285F4"/><stop offset="0.5" stop-color="#9B72CB"/><stop offset="1" stop-color="#D96570"/></linearGradient></defs></svg></span>
+            <span class="model-icon"><svg viewBox="0 0 16 16" fill="none"><path d="M8 0C8 4.42 4.42 8 0 8c4.42 0 8 3.58 8 8 0-4.42 3.58-8 8-8-4.42 0-8-3.58-8-8z" fill="url(#gemPill)"/><defs><linearGradient id="gemPill" x1="0" y1="0" x2="16" y2="16"><stop stop-color="#4285F4"/><stop offset="1" stop-color="#D96570"/></linearGradient></defs></svg></span>
             Gemini
           </button>
           <button class="model-pill" data-model="claude" style="--model-color: #D97706; --model-bg: rgba(217,119,6,0.15);" onclick="selectModel('claude')">
-            <span class="model-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M16.98 5.73L12 2 7.02 5.73 2 8.35l2.55 5.37L7.02 18.27 12 22l4.98-3.73L22 15.65l-2.55-5.37L16.98 5.73z" fill="#D97706"/></svg></span>
+            <span class="model-icon"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" fill="#D97706"/><ellipse cx="8" cy="1.5" rx="1.2" ry="1.5" fill="#D97706"/><ellipse cx="8" cy="14.5" rx="1.2" ry="1.5" fill="#D97706"/><ellipse cx="1.5" cy="8" rx="1.5" ry="1.2" fill="#D97706"/><ellipse cx="14.5" cy="8" rx="1.5" ry="1.2" fill="#D97706"/><ellipse cx="3.4" cy="3.4" rx="1.2" ry="1.5" transform="rotate(-45 3.4 3.4)" fill="#D97706"/><ellipse cx="12.6" cy="12.6" rx="1.2" ry="1.5" transform="rotate(-45 12.6 12.6)" fill="#D97706"/><ellipse cx="12.6" cy="3.4" rx="1.2" ry="1.5" transform="rotate(45 12.6 3.4)" fill="#D97706"/><ellipse cx="3.4" cy="12.6" rx="1.2" ry="1.5" transform="rotate(45 3.4 12.6)" fill="#D97706"/></svg></span>
             Claude
           </button>
           <button class="model-pill" data-model="grok" style="--model-color: #FFFFFF; --model-bg: rgba(255,255,255,0.1);" onclick="selectModel('grok')">
-            <span class="model-icon"><svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="6" fill="#000"/><path d="M7 7l4.5 5L7 17h2.5l3-3.5L15.5 17H18l-4.5-5L18 7h-2.5l-3 3.5L9.5 7H7z" fill="#fff"/></svg></span>
+            <span class="model-icon"><svg viewBox="0 0 16 16" fill="none"><path d="M2 2h5l3 4.5L13 2h2l-4.5 6.5L15 15h-5l-3.2-4.8L3.5 15H1l5-6.5L2 2z" fill="#fff" opacity="0.9"/></svg></span>
             Grok
           </button>
         </div>
@@ -519,17 +519,17 @@
       gemini: {
         name: 'Gemini',
         hint: 'Broad cross-referencing via Google Search. Good at comparing claims against multiple sources.',
-        badgeIcon: '<svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M12 2L2 12l10 10 10-10L12 2z" fill="url(#gemGrad2)"/><defs><linearGradient id="gemGrad2" x1="2" y1="12" x2="22" y2="12"><stop stop-color="#4285F4"/><stop offset="0.5" stop-color="#9B72CB"/><stop offset="1" stop-color="#D96570"/></linearGradient></defs></svg>',
+        badgeIcon: '<svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M8 0C8 4.42 4.42 8 0 8c4.42 0 8 3.58 8 8 0-4.42 3.58-8 8-8-4.42 0-8-3.58-8-8z" fill="url(#gemBadge)"/><defs><linearGradient id="gemBadge" x1="0" y1="0" x2="16" y2="16"><stop stop-color="#4285F4"/><stop offset="1" stop-color="#D96570"/></linearGradient></defs></svg>',
       },
       claude: {
         name: 'Claude',
         hint: 'Careful, structured synthesis. Best at step-by-step reasoning and qualifying claims honestly.',
-        badgeIcon: '<svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M16.98 5.73L12 2 7.02 5.73 2 8.35l2.55 5.37L7.02 18.27 12 22l4.98-3.73L22 15.65l-2.55-5.37L16.98 5.73z" fill="#D97706"/></svg>',
+        badgeIcon: '<svg viewBox="0 0 16 16" fill="none" width="14" height="14"><circle cx="8" cy="8" r="3" fill="#D97706"/><ellipse cx="8" cy="1.5" rx="1.2" ry="1.5" fill="#D97706"/><ellipse cx="8" cy="14.5" rx="1.2" ry="1.5" fill="#D97706"/><ellipse cx="1.5" cy="8" rx="1.5" ry="1.2" fill="#D97706"/><ellipse cx="14.5" cy="8" rx="1.5" ry="1.2" fill="#D97706"/><ellipse cx="3.4" cy="3.4" rx="1.2" ry="1.5" transform="rotate(-45 3.4 3.4)" fill="#D97706"/><ellipse cx="12.6" cy="12.6" rx="1.2" ry="1.5" transform="rotate(-45 12.6 12.6)" fill="#D97706"/><ellipse cx="12.6" cy="3.4" rx="1.2" ry="1.5" transform="rotate(45 12.6 3.4)" fill="#D97706"/><ellipse cx="3.4" cy="12.6" rx="1.2" ry="1.5" transform="rotate(45 3.4 12.6)" fill="#D97706"/></svg>',
       },
       grok: {
         name: 'Grok',
         hint: 'Real-time X/Twitter integration. Strongest for tracking how claims spread on social media.',
-        badgeIcon: '<svg viewBox="0 0 24 24" fill="none" width="14" height="14"><rect width="24" height="24" rx="6" fill="#000"/><path d="M7 7l4.5 5L7 17h2.5l3-3.5L15.5 17H18l-4.5-5L18 7h-2.5l-3 3.5L9.5 7H7z" fill="#fff"/></svg>',
+        badgeIcon: '<svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M2 2h5l3 4.5L13 2h2l-4.5 6.5L15 15h-5l-3.2-4.8L3.5 15H1l5-6.5L2 2z" fill="#fff" opacity="0.9"/></svg>',
       },
     };
 
