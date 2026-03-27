@@ -569,7 +569,13 @@ What story is this content trying to tell? What emotional responses does it try 
 STEP 5: CONFIDENCE ASSESSMENT
 For each finding above, rate your confidence: HIGH (clear evidence), MODERATE (strong indicators but some ambiguity), or LOW (possible but uncertain). Where you're uncertain, say so directly rather than hedging with vague language.
 
-STEP 6: BOTTOM LINE
+STEP 6: RECONCILIATION TABLE
+Create a markdown table that stacks every major claim as a row. Columns:
+| Claim | Type (fact/opinion/speculation) | FLICC Technique | Source Quality | Evidence vs. Claim | Confidence |
+
+For each row, fill in what you found. "FLICC Technique" should name the specific technique (e.g., "Cherry picking," "False dichotomy") or "None detected." "Evidence vs. Claim" should be a short summary of whether the evidence supports, contradicts, or adds missing context to the claim.
+
+STEP 7: BOTTOM LINE
 Summarize: overall reliability on a scale from "well-sourced and accurate" to "heavily misleading," which FLICC techniques (if any) are present, and what a reader should know before sharing this content.`,
 
         chatgpt: `You are a critical media analyst with web browsing capabilities. I need you to analyze the following content for misinformation using John Cook's FLICC framework (Fake experts, Logical fallacies, Impossible expectations, Cherry picking, Conspiracy theories).
@@ -598,7 +604,13 @@ For each questionable claim, find and present what the strongest available evide
 5. NARRATIVE & OMISSION ANALYSIS
 What story is this trying to tell? What's left out? What would change if the omitted context were included?
 
-6. VERDICT
+6. RECONCILIATION TABLE
+Create a markdown table that stacks every major claim as a row. Columns:
+| Claim | Type | FLICC Technique | Fact-Check Result | Source Link | Verdict |
+
+For each row: "FLICC Technique" names the specific technique or "None detected." "Fact-Check Result" summarizes what your search found. "Source Link" links to the best evidence you found. "Verdict" is Supported / Misleading / Lacks Context / Unverifiable.
+
+7. OVERALL VERDICT
 Rate overall reliability from "well-sourced and accurate" to "heavily misleading." Be specific about which parts are solid and which aren't. Don't flatten everything into one rating if some sections are reliable and others aren't.`,
 
         grok: `You are a critical media analyst with real-time access to X (Twitter) and current news. Analyze the following content for misinformation using John Cook's FLICC framework (Fake experts, Logical fallacies, Impossible expectations, Cherry picking, Conspiracy theories).
@@ -625,7 +637,13 @@ Who's behind this content? What's their track record? Do they have documented co
 6. NARRATIVE FRAMING
 What emotional response is this trying to trigger? What's missing? Is this part of a larger coordinated narrative push you can see evidence of?
 
-7. BOTTOM LINE
+7. RECONCILIATION TABLE
+Create a markdown table that stacks every major claim as a row. Columns:
+| Claim | Type | FLICC Technique | Social Spread | Real-Time Status | Verdict |
+
+For each row: "FLICC Technique" names the specific technique or "None detected." "Social Spread" notes who's amplifying it and whether there are coordinated patterns. "Real-Time Status" says whether it's been confirmed, debunked, or is still circulating unchecked. "Verdict" is Supported / Misleading / Lacks Context / Unverifiable.
+
+8. BOTTOM LINE
 Don't hedge. Rate reliability from "well-sourced and accurate" to "heavily misleading." Call out which specific claims are the biggest problems and why.`,
 
         gemini: `You are a critical media analyst with broad search and cross-referencing capabilities. Analyze the following content for misinformation using John Cook's FLICC framework (Fake experts, Logical fallacies, Impossible expectations, Cherry picking, Conspiracy theories).
@@ -652,7 +670,13 @@ Where does scientific or expert consensus actually stand on the major claims? Di
 6. NARRATIVE & OMISSION ANALYSIS
 What story is this telling? What framing choices shape how the reader interprets the facts? What context is missing that would change the reader's takeaway?
 
-7. BOTTOM LINE
+7. RECONCILIATION TABLE
+Create a markdown table that stacks every major claim as a row. Columns:
+| Claim | Type | FLICC Technique | Cross-Reference Consensus | Data Verified? | Confidence | Verdict |
+
+For each row: "FLICC Technique" names the specific technique or "None detected." "Cross-Reference Consensus" summarizes what multiple sources say. "Data Verified?" is Yes/No/Partially with a brief note. "Confidence" is HIGH/MODERATE/LOW. "Verdict" is Supported / Misleading / Lacks Context / Unverifiable. Important: if a cross-reference is from memory rather than a confirmed search result, mark it with an asterisk (*) so the user knows to double-check.
+
+8. BOTTOM LINE
 Rate overall reliability from "well-sourced and accurate" to "heavily misleading." For each major finding, note your confidence level (HIGH / MODERATE / LOW). Where you're uncertain, say so clearly rather than presenting a tentative conclusion as a firm one.`
       };
 
