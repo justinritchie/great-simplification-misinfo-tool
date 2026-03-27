@@ -489,7 +489,7 @@
           Copy
         </button>
       </div>
-      <div class="response-hint">Use this after the analysis. Paste it into a follow-up message to generate a kind, honest reply you can send to whoever shared this with you.</div>
+      <div class="response-hint">Use this after the analysis. Paste it into a follow-up message to generate a kind, honest reply you can send to whoever shared this with you. Fill in the [bracketed sections] with details about who sent it and what they said before copying.</div>
       <div class="prompt-output" id="responseOutput"></div>
     </div>
 
@@ -726,21 +726,26 @@ Rate overall reliability from "well-sourced and accurate" to "heavily misleading
       copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
 
       // Generate conversation response prompt
-      const responsePrompt = `Based on the analysis you just did, I need help responding to someone I care about who shared this article with me to support a point they were making.
+      const responsePrompt = `Based on the analysis you just did, I need help responding to someone who shared this article with me.
+
+CONTEXT ABOUT THE SITUATION:
+[Who sent this to you and your relationship -- e.g., "my uncle," "a coworker," "my mom"]
+[What they said when they shared it -- e.g., "See, I told you this was overblown," "You need to read this"]
+[Any relevant background -- e.g., "We've disagreed about this topic before," "They're generally open-minded but feel strongly about this one"]
 
 Write a response I can send them that:
 
-1. STARTS WITH GENUINE VALIDATION - Acknowledge what's accurate or reasonable in the article. If the person's underlying concern is legitimate (even if the article doesn't support it well), name that concern and validate it. Lead with what you agree on.
+1. STARTS WITH GENUINE VALIDATION -- Acknowledge what's accurate or reasonable in the article. If the person's underlying concern is legitimate (even if the article doesn't support it well), name that concern and validate it. Lead with what you agree on.
 
-2. ADDS MISSING CONTEXT GENTLY - For claims that are misleading or lack context, don't say "that's wrong." Instead, frame it as "I looked into this more and found some additional context that's worth knowing..." or "One thing the article doesn't mention is..." Share the fuller picture without making them feel attacked or foolish.
+2. ADDS MISSING CONTEXT GENTLY -- For claims that are misleading or lack context, don't say "that's wrong." Instead, frame it as "I looked into this more and found some additional context that's worth knowing..." or "One thing the article doesn't mention is..." Share the fuller picture without making them feel attacked or foolish.
 
-3. NAMES THE TECHNIQUE WITHOUT BLAME - If the article uses a FLICC technique (cherry picking, false dichotomy, etc.), explain the technique in a way that positions both of you against the misleading source, not against each other. Something like "It looks like this piece might be cherry-picking the data a bit - I found the full dataset tells a more complicated story."
+3. NAMES THE TECHNIQUE WITHOUT BLAME -- If the article uses a FLICC technique (cherry picking, false dichotomy, etc.), explain the technique in a way that positions both of you against the misleading source, not against each other. Something like "It looks like this piece might be cherry-picking the data a bit -- I found the full dataset tells a more complicated story."
 
-4. PRESERVES THE RELATIONSHIP - The tone should be curious and caring, not corrective. This person shared something because they care about the topic. Honor that. Avoid any language that sounds like lecturing, fact-checking, or "well actually."
+4. PRESERVES THE RELATIONSHIP -- The tone should be curious and caring, not corrective. This person shared something because they care about the topic. Honor that. Avoid any language that sounds like lecturing, fact-checking, or "well actually."
 
-5. OFFERS A BRIDGE - End with something that invites continued conversation rather than shutting it down. Maybe a question, or sharing something related that you found interesting.
+5. OFFERS A BRIDGE -- End with something that invites continued conversation rather than shutting it down. Maybe a question, or sharing something related that you found interesting.
 
-Keep the response casual and natural. Not too long. Something you'd actually text or email to a family member. Avoid sounding like an AI or a fact-checker.`;
+Keep the response casual and natural. Not too long. Something you'd actually text or email. Avoid sounding like an AI or a fact-checker.`;
 
       document.getElementById('responseOutput').textContent = responsePrompt;
       document.getElementById('responseCard').classList.add('visible');
