@@ -6,6 +6,7 @@
   <title>Misinformation Analysis Tool | The Great Simplification</title>
   <meta name="theme-color" content="#0A0319">
   <meta name="description" content="Analyze content for misinformation patterns. Generate AI prompts tailored to Claude, ChatGPT, Grok, and Gemini. A tool from The Great Simplification.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23AB40FF'/%3E%3Cstop offset='1' stop-color='%237B2FCC'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='26' cy='26' r='18' fill='none' stroke='url(%23g)' stroke-width='5'/%3E%3Cline x1='39' y1='39' x2='58' y2='58' stroke='url(%23g)' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M18 26h16M26 18v16' stroke='%23fff' stroke-width='3' stroke-linecap='round' opacity='0.9'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500&family=Syne:wght@400;500&display=swap" rel="stylesheet">
@@ -534,22 +535,22 @@
     const models = {
       chatgpt: {
         name: 'ChatGPT',
-        hint: 'Deep thinking and web browsing. Can search for sources in real time and reason through complex arguments.',
+        hint: 'Most verifiable output. Live fact-checking with auditable source links you can check yourself.',
         badgeIcon: '<img src="chatgpt-icon.svg" alt="ChatGPT" style="width:14px;height:14px;border-radius:3px;">',
       },
       gemini: {
         name: 'Gemini',
-        hint: 'Broad cross-referencing via Google Search. Good at comparing claims against multiple sources.',
+        hint: 'Broadest evidence landscape. Multi-source cross-referencing and consensus mapping across the web.',
         badgeIcon: '<img src="google-gemini-icon.svg" alt="Gemini" style="width:14px;height:14px;">',
       },
       claude: {
         name: 'Claude',
-        hint: 'Careful, structured synthesis. Best at step-by-step reasoning and qualifying claims honestly.',
+        hint: 'Structured uncertainty analysis. Most honest assessment of what\u2019s known vs. what\u2019s inferred.',
         badgeIcon: '<img src="claude-ai-icon.svg" alt="Claude" style="width:14px;height:14px;border-radius:3px;">',
       },
       grok: {
         name: 'Grok',
-        hint: 'Real-time X/Twitter integration. Strongest for tracking how claims spread on social media.',
+        hint: 'Social dynamics layer. Tracks how claims spread, who\u2019s amplifying them, and real-time debunking status.',
         badgeIcon: '<img src="grok-icon.svg" alt="Grok" style="width:14px;height:14px;border-radius:3px;">',
       },
     };
