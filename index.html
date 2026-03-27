@@ -581,23 +581,26 @@ For each major claim, check whether any of these five techniques are being used:
 - Cherry picking: Is a narrow slice of data being presented while ignoring the broader body of evidence?
 - Conspiracy theories: Are shadowy actors invoked to explain away inconvenient evidence?
 
-STEP 3: SOURCE CREDIBILITY
+STEP 3: INOCULATION PARALLELS
+For each FLICC technique detected above, provide a clear parallel example from an unrelated, non-polarizing domain that uses the exact same technique. Draw from tobacco industry marketing, food industry health claims, historical propaganda, or advertising. Present the parallel example first to make the technique obvious, then show how the same structural trick appears in the content being analyzed. This sequencing is important: neutral example first, then the contested content.
+
+STEP 4: SOURCE CREDIBILITY
 Who wrote or published this? What are their documented credentials, funding sources, and track record? Are primary sources cited, or is this secondhand reporting? If sources are cited, are they accurately represented?
 
-STEP 4: NARRATIVE FRAMING
+STEP 5: NARRATIVE FRAMING
 What story is this content trying to tell? What emotional responses does it try to trigger? What information is conspicuously absent? Is there a false balance being created between well-supported and fringe positions?
 
-STEP 5: CONFIDENCE ASSESSMENT
+STEP 6: CONFIDENCE ASSESSMENT
 For each finding above, rate your confidence: HIGH (clear evidence), MODERATE (strong indicators but some ambiguity), or LOW (possible but uncertain). Where you're uncertain, say so directly rather than hedging with vague language.
 
-STEP 6: RECONCILIATION TABLE
+STEP 7: RECONCILIATION TABLE
 Create a markdown table that stacks every major claim as a row. Columns:
 | Claim | Type (fact/opinion/speculation) | FLICC Technique | Source Quality | Evidence vs. Claim | Confidence |
 
 For each row, fill in what you found. "FLICC Technique" should name the specific technique (e.g., "Cherry picking," "False dichotomy") or "None detected." "Evidence vs. Claim" should be a short summary of whether the evidence supports, contradicts, or adds missing context to the claim.
 
-STEP 7: BOTTOM LINE
-Summarize: overall reliability on a scale from "well-sourced and accurate" to "heavily misleading," which FLICC techniques (if any) are present, and what a reader should know before sharing this content.`,
+STEP 8: BOTTOM LINE
+Summarize: overall reliability on a scale from "well-sourced and accurate" to "heavily misleading," which FLICC techniques (if any) are present, and what a reader should know before sharing this content. Flag any claims where a FLICC scan alone is insufficient -- where evaluating accuracy requires domain-specific expertise beyond structural pattern recognition. For these claims, say so directly rather than rendering a verdict the framework can't support, and name what kind of expertise would be needed.`,
 
         chatgpt: `You are a critical media analyst with web browsing capabilities. I need you to analyze the following content for misinformation using John Cook's FLICC framework (Fake experts, Logical fallacies, Impossible expectations, Cherry picking, Conspiracy theories).
 
@@ -619,20 +622,23 @@ Check for these five misinformation techniques:
 - Cherry picking (selective data that ignores the broader picture)
 - Conspiracy theories (shadowy actors invoked to dismiss evidence)
 
-4. COUNTER-EVIDENCE
+4. INOCULATION PARALLELS
+For each FLICC technique you found, search for a well-documented parallel example from a non-polarizing domain that uses the exact same technique -- tobacco industry marketing, food industry health claims, historical propaganda, or advertising. Present the parallel first to make the technique obvious, then show how the same trick appears in the article. This is the key step: the neutral example defuses identity-based resistance before the reader encounters the contested claim.
+
+5. COUNTER-EVIDENCE
 For each questionable claim, find and present what the strongest available evidence actually says. Link to sources where possible. Don't just assert the claim is wrong; show what the data says.
 
-5. NARRATIVE & OMISSION ANALYSIS
+6. NARRATIVE & OMISSION ANALYSIS
 What story is this trying to tell? What's left out? What would change if the omitted context were included?
 
-6. RECONCILIATION TABLE
+7. RECONCILIATION TABLE
 Create a markdown table that stacks every major claim as a row. Columns:
 | Claim | Type | FLICC Technique | Fact-Check Result | Source Link | Verdict |
 
 For each row: "FLICC Technique" names the specific technique or "None detected." "Fact-Check Result" summarizes what your search found. "Source Link" links to the best evidence you found. "Verdict" is Supported / Misleading / Lacks Context / Unverifiable.
 
-7. OVERALL VERDICT
-Rate overall reliability from "well-sourced and accurate" to "heavily misleading." Be specific about which parts are solid and which aren't. Don't flatten everything into one rating if some sections are reliable and others aren't.`,
+8. OVERALL VERDICT
+Rate overall reliability from "well-sourced and accurate" to "heavily misleading." Be specific about which parts are solid and which aren't. Don't flatten everything into one rating if some sections are reliable and others aren't. Flag any claims where a FLICC scan alone is insufficient -- where evaluating accuracy requires domain-specific expertise beyond structural pattern recognition. For these claims, say so directly rather than rendering a verdict the framework can't support, and name what kind of expertise would be needed.`,
 
         grok: `You are a critical media analyst with real-time access to X (Twitter) and current news. Analyze the following content for misinformation using John Cook's FLICC framework (Fake experts, Logical fallacies, Impossible expectations, Cherry picking, Conspiracy theories).
 
@@ -649,23 +655,26 @@ Search X/Twitter for how the claims in this content are spreading. Who's amplify
 3. FLICC TECHNIQUE SCAN
 Check for: Fake experts, Logical fallacies, Impossible expectations, Cherry picking, Conspiracy theories. Be blunt about what you find.
 
-4. REAL-TIME CONTEXT
+4. INOCULATION PARALLELS
+For each FLICC technique detected, give a blunt parallel example from a non-polarizing domain -- tobacco industry marketing, food industry health claims, historical propaganda, advertising. Show the technique in the neutral example first, then show how the exact same trick is being used in the article. Don't be subtle about the comparison.
+
+5. REAL-TIME CONTEXT
 What has happened since this was published that adds context? Have any of the claims been confirmed or debunked? Are there breaking developments that change the picture? What are credible journalists and subject-matter experts saying about these claims right now?
 
-5. SOURCE CREDIBILITY
+6. SOURCE CREDIBILITY
 Who's behind this content? What's their track record? Do they have documented conflicts of interest or a history of misleading claims? Check their recent X activity for patterns.
 
-6. NARRATIVE FRAMING
+7. NARRATIVE FRAMING
 What emotional response is this trying to trigger? What's missing? Is this part of a larger coordinated narrative push you can see evidence of?
 
-7. RECONCILIATION TABLE
+8. RECONCILIATION TABLE
 Create a markdown table that stacks every major claim as a row. Columns:
 | Claim | Type | FLICC Technique | Social Spread | Real-Time Status | Verdict |
 
 For each row: "FLICC Technique" names the specific technique or "None detected." "Social Spread" notes who's amplifying it and whether there are coordinated patterns. "Real-Time Status" says whether it's been confirmed, debunked, or is still circulating unchecked. "Verdict" is Supported / Misleading / Lacks Context / Unverifiable.
 
-8. BOTTOM LINE
-Don't hedge. Rate reliability from "well-sourced and accurate" to "heavily misleading." Call out which specific claims are the biggest problems and why.`,
+9. BOTTOM LINE
+Don't hedge. Rate reliability from "well-sourced and accurate" to "heavily misleading." Call out which specific claims are the biggest problems and why. Flag any claims where a FLICC scan alone is insufficient -- where evaluating accuracy requires domain-specific expertise you can't verify through social media or real-time search. For those, say so directly and name what kind of expert would need to weigh in.`,
 
         gemini: `You are a critical media analyst with broad search and cross-referencing capabilities. Analyze the following content for misinformation using John Cook's FLICC framework (Fake experts, Logical fallacies, Impossible expectations, Cherry picking, Conspiracy theories).
 
@@ -682,23 +691,26 @@ For each major claim, find what multiple independent sources say. Compare covera
 3. FLICC TECHNIQUE SCAN
 Check for: Fake experts, Logical fallacies, Impossible expectations, Cherry picking, Conspiracy theories. For each technique found, explain the specific mechanism being used and provide a concrete example from the content.
 
-4. DATA VERIFICATION
+4. INOCULATION PARALLELS
+For each FLICC technique detected, find a well-documented parallel from a non-polarizing domain that uses the same technique -- tobacco industry marketing, food industry health claims, historical propaganda, or advertising. Cross-reference to confirm the parallel is real and well-sourced (flag if from memory). Present the neutral example first to make the technique visible, then show how it maps onto the article's content. For each parallel, rate your confidence that the comparison is structurally accurate.
+
+5. DATA VERIFICATION
 If the content cites statistics, studies, or data: trace them back to the original source. Does the original say what the content claims it says? Is the data being presented with appropriate context, or has it been stripped of caveats and qualifiers?
 
-5. CONSENSUS CHECK
+6. CONSENSUS CHECK
 Where does scientific or expert consensus actually stand on the major claims? Distinguish between claims that contradict well-established consensus, claims in genuinely debated areas, and claims on topics where expert opinion is still forming. Do not present fringe positions as having equal weight to mainstream evidence unless there is genuine scientific debate.
 
-6. NARRATIVE & OMISSION ANALYSIS
+7. NARRATIVE & OMISSION ANALYSIS
 What story is this telling? What framing choices shape how the reader interprets the facts? What context is missing that would change the reader's takeaway?
 
-7. RECONCILIATION TABLE
+8. RECONCILIATION TABLE
 Create a markdown table that stacks every major claim as a row. Columns:
 | Claim | Type | FLICC Technique | Cross-Reference Consensus | Data Verified? | Confidence | Verdict |
 
 For each row: "FLICC Technique" names the specific technique or "None detected." "Cross-Reference Consensus" summarizes what multiple sources say. "Data Verified?" is Yes/No/Partially with a brief note. "Confidence" is HIGH/MODERATE/LOW. "Verdict" is Supported / Misleading / Lacks Context / Unverifiable. Important: if a cross-reference is from memory rather than a confirmed search result, mark it with an asterisk (*) so the user knows to double-check.
 
-8. BOTTOM LINE
-Rate overall reliability from "well-sourced and accurate" to "heavily misleading." For each major finding, note your confidence level (HIGH / MODERATE / LOW). Where you're uncertain, say so clearly rather than presenting a tentative conclusion as a firm one.`
+9. BOTTOM LINE
+Rate overall reliability from "well-sourced and accurate" to "heavily misleading." For each major finding, note your confidence level (HIGH / MODERATE / LOW). Where you're uncertain, say so clearly rather than presenting a tentative conclusion as a firm one. Flag any claims where a FLICC scan alone is insufficient -- where evaluating accuracy requires domain-specific expertise beyond structural pattern recognition. For these claims, say so directly rather than rendering a verdict the framework can't support, and name what kind of expertise would be needed to properly evaluate them.`
       };
 
       return prompts[model];
@@ -732,6 +744,14 @@ CONTEXT ABOUT THE SITUATION:
 [Who sent this to you and your relationship -- e.g., "my uncle," "a coworker," "my mom"]
 [What they said when they shared it -- e.g., "See, I told you this was overblown," "You need to read this"]
 [Any relevant background -- e.g., "We've disagreed about this topic before," "They're generally open-minded but feel strongly about this one"]
+
+AUDIENCE ASSESSMENT:
+Before drafting the response, briefly assess where this person likely falls based on the context above:
+- Genuinely undecided and open to new information? The full validation-context-bridge approach below works well.
+- Already convinced but misinformed on specifics? Lead heavier on the missing context, lighter on validation.
+- Deeply committed to a dismissive position? A single conversation won't shift their position. Focus on planting one small seed and preserving the relationship. Don't try to win.
+
+State your read on where they fall, then draft the response accordingly.
 
 Write a response I can send them that:
 
