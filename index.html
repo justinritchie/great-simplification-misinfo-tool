@@ -209,6 +209,112 @@
       overflow-y: auto;
     }
 
+    /* Scroll teaser */
+    .scroll-teaser {
+      text-align: center;
+      margin: 3rem 0 1rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .scroll-teaser a {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .scroll-teaser a:hover {
+      color: #AB40FF;
+    }
+    .scroll-teaser .arrow {
+      width: 20px;
+      height: 20px;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+
+    /* Episode Section */
+    .episode-section {
+      margin-top: 2rem;
+      padding-top: 2rem;
+    }
+    .episode-label {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .episode-label::before {
+      content: '•';
+      color: rgba(255, 255, 255, 0.3);
+    }
+    .episode-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .episode-info {
+      padding: 1.5rem 1.75rem;
+    }
+    .episode-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 500;
+      font-size: 1.15rem;
+      line-height: 1.35;
+      margin-bottom: 0.5rem;
+    }
+    .episode-guest {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 0.75rem;
+    }
+    .episode-desc {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .episode-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+      border-radius: 24px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .episode-link:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
     /* Footer */
     .footer {
       margin-top: 3rem;
@@ -250,7 +356,7 @@
 
     <!-- Header -->
     <div class="header">
-      <img src="tgs-logo-full.webp" alt="The Great Simplification" class="logo">
+      <a href="https://www.thegreatsimplification.com" target="_blank" rel="noopener"><img src="tgs-logo-full.webp" alt="The Great Simplification" class="logo"></a>
     </div>
 
     <!-- Hero -->
@@ -279,6 +385,33 @@
         </button>
       </div>
       <div class="prompt-output" id="promptOutput"></div>
+    </div>
+
+    <!-- Scroll Teaser -->
+    <div class="scroll-teaser">
+      <a href="#episode">
+        Listen to the episode that inspired this tool
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+    </div>
+
+    <!-- Episode Section -->
+    <div class="episode-section" id="episode">
+      <div class="episode-label">The episode</div>
+      <div class="episode-card">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/iQRSZpBWoPE" title="Why Science Communication Fails — John Cook on The Great Simplification" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="episode-info">
+          <div class="episode-title">Why Science Communication Fails: How to Break Down Misleading Arguments and Inoculate Against Misinformation</div>
+          <div class="episode-guest">John Cook — Senior Research Fellow, University of Melbourne &middot; 1h 23m</div>
+          <div class="episode-desc">Throwing facts at misinformation doesn't work, but teaching people to recognize the techniques of misinformation does. John Cook explains the FLICC framework, logic-based inoculation, and why the aversion to being tricked is more universal than any ideological commitment.</div>
+          <a href="https://www.thegreatsimplification.com/episode/212-john-cook" target="_blank" rel="noopener" class="episode-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Full episode on thegreatsimplification.com
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- Footer -->
