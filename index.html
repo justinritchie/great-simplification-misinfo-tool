@@ -177,6 +177,19 @@
       transition: color 0.2s;
     }
 
+    .model-switch-hint {
+      margin-top: 0.4rem;
+      font-size: 0.75rem;
+      color: #AB40FF;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .model-switch-hint.visible {
+      opacity: 1;
+    }
+
     /* Generate Button */
     .generate-btn {
       display: inline-flex;
@@ -467,7 +480,8 @@
             Grok
           </button>
         </div>
-        <div class="model-hint" id="modelHint">Deep thinking and web browsing. Can search for sources in real time and reason through complex arguments.</div>
+        <div class="model-hint" id="modelHint">Most verifiable output. Live fact-checking with auditable source links you can check yourself.</div>
+        <div class="model-switch-hint" id="modelSwitchHint">Click Generate to update your prompt</div>
       </div>
 
       <button class="generate-btn" id="generateBtn" onclick="generatePrompt()">
@@ -568,6 +582,12 @@
         pill.classList.toggle('active', pill.dataset.model === model);
       });
       document.getElementById('modelHint').textContent = models[model].hint;
+      // Show regenerate hint if output is already visible
+      const outputCard = document.getElementById('outputCard');
+      const hint = document.getElementById('modelSwitchHint');
+      if (outputCard.classList.contains('visible')) {
+        hint.classList.add('visible');
+      }
     }
 
     function getPrompt(model, sourceBlock) {
@@ -823,6 +843,7 @@ Rate overall reliability from "well-sourced and accurate" to "heavily misleading
     function generatePrompt() {
       const input = document.getElementById('sourceInput').value.trim();
       if (!input) return;
+      document.getElementById('modelSwitchHint').classList.remove('visible');
 
       const isURL = /^https?:\/\//i.test(input);
       const sourceBlock = isURL
