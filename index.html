@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Misinformation Analysis Tool | The Great Simplification</title>
+  <meta name="theme-color" content="#0A0319">
+  <meta name="description" content="Analyze content for misinformation patterns. A tool from The Great Simplification.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500&family=Syne:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Albert Sans', system-ui, -apple-system, sans-serif;
+      background: #0A0319;
+      color: #FFFFFF;
+      min-height: 100vh;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Layout */
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    /* Header / Logo */
+    .header {
+      margin-bottom: 3rem;
+    }
+    .logo {
+      height: 48px;
+      width: auto;
+    }
+
+    /* Hero */
+    .hero {
+      margin-bottom: 2.5rem;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 500;
+      font-size: 2.5rem;
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      margin-bottom: 1rem;
+    }
+    .hero h1 .accent {
+      color: #AB40FF;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    /* Input Card */
+    .card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .input-label {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .input-label::before {
+      content: '•';
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .input-field {
+      width: 100%;
+      min-height: 120px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 1rem;
+      color: #FFFFFF;
+      font-family: 'Albert Sans', sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+    .input-field::placeholder {
+      color: rgba(255, 255, 255, 0.25);
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: #AB40FF;
+    }
+
+    /* Generate Button */
+    .generate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #AB40FF;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 24px;
+      padding: 12px 24px;
+      font-family: 'Albert Sans', sans-serif;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      margin-top: 1rem;
+    }
+    .generate-btn:hover {
+      opacity: 0.88;
+    }
+    .generate-btn:active {
+      transform: scale(0.98);
+    }
+    .generate-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .generate-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Output Card */
+    .output-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: none;
+    }
+    .output-card.visible {
+      display: block;
+    }
+
+    .output-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .output-label {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .output-label::before {
+      content: '•';
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 24px;
+      padding: 8px 16px;
+      font-family: 'Albert Sans', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+    .copy-btn.copied {
+      background: rgba(171, 64, 255, 0.25);
+      color: #AB40FF;
+    }
+    .copy-btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .prompt-output {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 1.25rem;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.8);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-text {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.25);
+    }
+    .footer-link {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-link:hover {
+      color: #AB40FF;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .page { padding: 2rem 1rem 3rem; }
+      .hero h1 { font-size: 1.85rem; }
+      .card, .output-card { padding: 1.25rem; }
+    }
+
+    /* Scrollbar for output */
+    .prompt-output::-webkit-scrollbar { width: 6px; }
+    .prompt-output::-webkit-scrollbar-track { background: transparent; }
+    .prompt-output::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Header -->
+    <div class="header">
+      <img src="tgs-logo-full.webp" alt="The Great Simplification" class="logo">
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <h1><span class="accent">Analyze</span> content for misinformation</h1>
+      <p>Paste a link or article text below. This tool generates a ready-to-use prompt that helps you critically examine claims, sources, and narrative framing.</p>
+    </div>
+
+    <!-- Input -->
+    <div class="card">
+      <div class="input-label">Source material</div>
+      <textarea class="input-field" id="sourceInput" placeholder="Paste a URL or article text here..."></textarea>
+      <button class="generate-btn" id="generateBtn" onclick="generatePrompt()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Generate Prompt
+      </button>
+    </div>
+
+    <!-- Output -->
+    <div class="output-card" id="outputCard">
+      <div class="output-header">
+        <div class="output-label">Your analysis prompt</div>
+        <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="prompt-output" id="promptOutput"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <span class="footer-text">The Great Simplification</span>
+      <a href="https://www.thegreatsimplification.com" target="_blank" rel="noopener" class="footer-link">thegreatsimplification.com</a>
+    </div>
+
+  </div>
+
+  <script>
+    function generatePrompt() {
+      const input = document.getElementById('sourceInput').value.trim();
+      if (!input) return;
+
+      const isURL = /^https?:\/\//i.test(input);
+
+      const sourceBlock = isURL
+        ? `Source URL: ${input}`
+        : `Article text:\n"""\n${input}\n"""`;
+
+      const prompt = `You are a critical media analyst. I want you to carefully analyze the following content for misinformation, misleading framing, and unsupported claims.
+
+${sourceBlock}
+
+Please provide:
+
+1. CLAIM INVENTORY — List every distinct factual claim made in this content. For each claim, note whether it is verifiable, opinion, or speculation.
+
+2. SOURCE ANALYSIS — Who is making these claims? What are their credentials, potential conflicts of interest, or known biases? Are primary sources cited, or is this secondhand reporting?
+
+3. EVIDENCE CHECK — For each major claim, what does the available evidence actually say? Flag any claims that are misleading, lack context, cherry-pick data, or contradict established research.
+
+4. NARRATIVE FRAMING — What story is this content trying to tell? What emotional responses does it attempt to trigger? What information is conspicuously absent?
+
+5. BOTTOM LINE — Summarize the overall reliability of this content. Rate it on a scale from "well-sourced and accurate" to "heavily misleading" and explain your reasoning.
+
+Be specific. Cite your reasoning. Distinguish between what is factually wrong versus what is misleading through omission or framing.`;
+
+      document.getElementById('promptOutput').textContent = prompt;
+      document.getElementById('outputCard').classList.add('visible');
+
+      // Reset copy button state
+      const copyBtn = document.getElementById('copyBtn');
+      copyBtn.classList.remove('copied');
+      copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+
+      // Smooth scroll to output
+      document.getElementById('outputCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function copyPrompt() {
+      const text = document.getElementById('promptOutput').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.classList.add('copied');
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+        }, 2000);
+      });
+    }
+
+    // Allow Cmd/Ctrl+Enter to generate
+    document.getElementById('sourceInput').addEventListener('keydown', function(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        generatePrompt();
+      }
+    });
+  </script>
+</body>
+</html>
