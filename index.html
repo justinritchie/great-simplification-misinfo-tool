@@ -156,8 +156,8 @@
       border-radius: 4px;
     }
     .model-pill .model-icon svg {
-      width: 14px;
-      height: 14px;
+      width: 18px;
+      height: 18px;
     }
 
     /* Model strength hint */
@@ -231,10 +231,12 @@
       border-radius: 12px;
       padding: 4px 10px;
     }
-    .output-model-badge img {
+    .output-model-badge img,
+    .output-model-badge svg {
       width: 14px;
       height: 14px;
       border-radius: 3px;
+      flex-shrink: 0;
     }
 
     .copy-btn {
@@ -432,24 +434,24 @@
       <div class="model-selector">
         <div class="section-label">Choose your model</div>
         <div class="model-pills">
-          <button class="model-pill active" data-model="claude" style="--model-color: #D97706; --model-bg: rgba(217,119,6,0.15);" onclick="selectModel('claude')">
-            <span class="model-icon"><img src="https://claude.ai/favicon.ico" alt="Claude"></span>
-            Claude
-          </button>
-          <button class="model-pill" data-model="chatgpt" style="--model-color: #10A37F; --model-bg: rgba(16,163,127,0.15);" onclick="selectModel('chatgpt')">
+          <button class="model-pill active" data-model="chatgpt" style="--model-color: #10A37F; --model-bg: rgba(16,163,127,0.15);" onclick="selectModel('chatgpt')">
             <span class="model-icon"><img src="https://chatgpt.com/favicon.ico" alt="ChatGPT"></span>
             ChatGPT
           </button>
-          <button class="model-pill" data-model="grok" style="--model-color: #FFFFFF; --model-bg: rgba(255,255,255,0.1);" onclick="selectModel('grok')">
-            <span class="model-icon"><img src="https://grok.com/favicon.ico" alt="Grok"></span>
-            Grok
-          </button>
           <button class="model-pill" data-model="gemini" style="--model-color: #4285F4; --model-bg: rgba(66,133,244,0.15);" onclick="selectModel('gemini')">
-            <span class="model-icon"><img src="https://gemini.google.com/favicon.ico" alt="Gemini"></span>
+            <span class="model-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#8AB4F8" opacity="0.2"/><path d="M12 2L2 12l10 10 10-10L12 2z" fill="url(#gemGrad)"/><defs><linearGradient id="gemGrad" x1="2" y1="12" x2="22" y2="12"><stop stop-color="#4285F4"/><stop offset="0.5" stop-color="#9B72CB"/><stop offset="1" stop-color="#D96570"/></linearGradient></defs></svg></span>
             Gemini
           </button>
+          <button class="model-pill" data-model="claude" style="--model-color: #D97706; --model-bg: rgba(217,119,6,0.15);" onclick="selectModel('claude')">
+            <span class="model-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M16.98 5.73L12 2 7.02 5.73 2 8.35l2.55 5.37L7.02 18.27 12 22l4.98-3.73L22 15.65l-2.55-5.37L16.98 5.73z" fill="#D97706"/></svg></span>
+            Claude
+          </button>
+          <button class="model-pill" data-model="grok" style="--model-color: #FFFFFF; --model-bg: rgba(255,255,255,0.1);" onclick="selectModel('grok')">
+            <span class="model-icon"><svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="6" fill="#000"/><path d="M7 7l4.5 5L7 17h2.5l3-3.5L15.5 17H18l-4.5-5L18 7h-2.5l-3 3.5L9.5 7H7z" fill="#fff"/></svg></span>
+            Grok
+          </button>
         </div>
-        <div class="model-hint" id="modelHint">Careful, structured synthesis. Best at step-by-step reasoning and qualifying claims honestly.</div>
+        <div class="model-hint" id="modelHint">Deep thinking and web browsing. Can search for sources in real time and reason through complex arguments.</div>
       </div>
 
       <button class="generate-btn" id="generateBtn" onclick="generatePrompt()">
@@ -506,28 +508,28 @@
   </div>
 
   <script>
-    let selectedModel = 'claude';
+    let selectedModel = 'chatgpt';
 
     const models = {
-      claude: {
-        name: 'Claude',
-        hint: 'Careful, structured synthesis. Best at step-by-step reasoning and qualifying claims honestly.',
-        icon: 'https://claude.ai/favicon.ico',
-      },
       chatgpt: {
         name: 'ChatGPT',
         hint: 'Deep thinking and web browsing. Can search for sources in real time and reason through complex arguments.',
-        icon: 'https://chatgpt.com/favicon.ico',
-      },
-      grok: {
-        name: 'Grok',
-        hint: 'Real-time X/Twitter integration. Strongest for tracking how claims spread on social media.',
-        icon: 'https://grok.com/favicon.ico',
+        badgeIcon: '<img src="https://chatgpt.com/favicon.ico" alt="ChatGPT" style="width:14px;height:14px;border-radius:3px;">',
       },
       gemini: {
         name: 'Gemini',
         hint: 'Broad cross-referencing via Google Search. Good at comparing claims against multiple sources.',
-        icon: 'https://gemini.google.com/favicon.ico',
+        badgeIcon: '<svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M12 2L2 12l10 10 10-10L12 2z" fill="url(#gemGrad2)"/><defs><linearGradient id="gemGrad2" x1="2" y1="12" x2="22" y2="12"><stop stop-color="#4285F4"/><stop offset="0.5" stop-color="#9B72CB"/><stop offset="1" stop-color="#D96570"/></linearGradient></defs></svg>',
+      },
+      claude: {
+        name: 'Claude',
+        hint: 'Careful, structured synthesis. Best at step-by-step reasoning and qualifying claims honestly.',
+        badgeIcon: '<svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M16.98 5.73L12 2 7.02 5.73 2 8.35l2.55 5.37L7.02 18.27 12 22l4.98-3.73L22 15.65l-2.55-5.37L16.98 5.73z" fill="#D97706"/></svg>',
+      },
+      grok: {
+        name: 'Grok',
+        hint: 'Real-time X/Twitter integration. Strongest for tracking how claims spread on social media.',
+        badgeIcon: '<svg viewBox="0 0 24 24" fill="none" width="14" height="14"><rect width="24" height="24" rx="6" fill="#000"/><path d="M7 7l4.5 5L7 17h2.5l3-3.5L15.5 17H18l-4.5-5L18 7h-2.5l-3 3.5L9.5 7H7z" fill="#fff"/></svg>',
       },
     };
 
@@ -670,7 +672,7 @@ Rate overall reliability from "well-sourced and accurate" to "heavily misleading
       const model = models[selectedModel];
 
       document.getElementById('promptOutput').textContent = prompt;
-      document.getElementById('outputBadge').innerHTML = `<img src="${model.icon}" alt="${model.name}"> Prompt optimized for ${model.name}`;
+      document.getElementById('outputBadge').innerHTML = `${model.badgeIcon} Prompt optimized for ${model.name}`;
       document.getElementById('outputCard').classList.add('visible');
 
       // Reset copy button
