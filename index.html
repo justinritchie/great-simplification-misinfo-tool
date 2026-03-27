@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Misinformation Analysis Tool | The Great Simplification</title>
   <meta name="theme-color" content="#0A0319">
-  <meta name="description" content="Analyze content for misinformation patterns. A tool from The Great Simplification.">
+  <meta name="description" content="Analyze content for misinformation patterns. Generate AI prompts tailored to Claude, ChatGPT, Grok, and Gemini. A tool from The Great Simplification.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500&family=Syne:wght@400;500&display=swap" rel="stylesheet">
@@ -70,7 +70,7 @@
       -webkit-backdrop-filter: blur(12px);
     }
 
-    .input-label {
+    .section-label {
       font-size: 0.85rem;
       color: rgba(255, 255, 255, 0.4);
       margin-bottom: 0.75rem;
@@ -78,8 +78,8 @@
       align-items: center;
       gap: 6px;
     }
-    .input-label::before {
-      content: '•';
+    .section-label::before {
+      content: '\2022';
       color: rgba(255, 255, 255, 0.3);
     }
 
@@ -105,6 +105,70 @@
       border-color: #AB40FF;
     }
 
+    /* Model Selector */
+    .model-selector {
+      margin-top: 1.25rem;
+    }
+    .model-selector .section-label {
+      margin-bottom: 0.6rem;
+    }
+    .model-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .model-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 8px 16px;
+      font-family: 'Albert Sans', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .model-pill:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .model-pill.active {
+      border-color: var(--model-color);
+      background: var(--model-bg);
+      color: #FFFFFF;
+    }
+    .model-pill .model-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .model-pill .model-icon img {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+    }
+    .model-pill .model-icon svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Model strength hint */
+    .model-hint {
+      margin-top: 0.6rem;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.35);
+      min-height: 1.2em;
+      transition: color 0.2s;
+    }
+
     /* Generate Button */
     .generate-btn {
       display: inline-flex;
@@ -119,7 +183,7 @@
       font-size: 1rem;
       cursor: pointer;
       transition: opacity 0.2s, transform 0.1s;
-      margin-top: 1rem;
+      margin-top: 1.25rem;
     }
     .generate-btn:hover {
       opacity: 0.88;
@@ -157,16 +221,20 @@
       justify-content: space-between;
       margin-bottom: 1rem;
     }
-    .output-label {
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.4);
-      display: flex;
+    .output-model-badge {
+      display: inline-flex;
       align-items: center;
       gap: 6px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 4px 10px;
     }
-    .output-label::before {
-      content: '•';
-      color: rgba(255, 255, 255, 0.3);
+    .output-model-badge img {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
     }
 
     .copy-btn {
@@ -243,18 +311,6 @@
     .episode-section {
       margin-top: 2rem;
       padding-top: 2rem;
-    }
-    .episode-label {
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.4);
-      margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .episode-label::before {
-      content: '•';
-      color: rgba(255, 255, 255, 0.3);
     }
     .episode-card {
       background: rgba(255, 255, 255, 0.06);
@@ -343,6 +399,8 @@
       .page { padding: 2rem 1rem 3rem; }
       .hero h1 { font-size: 1.85rem; }
       .card, .output-card { padding: 1.25rem; }
+      .model-pills { gap: 6px; }
+      .model-pill { padding: 7px 12px; font-size: 0.82rem; }
     }
 
     /* Scrollbar for output */
@@ -362,13 +420,38 @@
     <!-- Hero -->
     <div class="hero">
       <h1><span class="accent">Analyze</span> content for misinformation</h1>
-      <p>Paste a link or article text below. This tool generates a ready-to-use prompt that helps you critically examine claims, sources, and narrative framing.</p>
+      <p>Paste a link or article text below, choose your AI model, and get a tailored prompt that plays to that model's strengths for critical analysis.</p>
     </div>
 
     <!-- Input -->
     <div class="card">
-      <div class="input-label">Source material</div>
+      <div class="section-label">Source material</div>
       <textarea class="input-field" id="sourceInput" placeholder="Paste a URL or article text here..."></textarea>
+
+      <!-- Model Selector -->
+      <div class="model-selector">
+        <div class="section-label">Choose your model</div>
+        <div class="model-pills">
+          <button class="model-pill active" data-model="claude" style="--model-color: #D97706; --model-bg: rgba(217,119,6,0.15);" onclick="selectModel('claude')">
+            <span class="model-icon"><img src="https://claude.ai/favicon.ico" alt="Claude"></span>
+            Claude
+          </button>
+          <button class="model-pill" data-model="chatgpt" style="--model-color: #10A37F; --model-bg: rgba(16,163,127,0.15);" onclick="selectModel('chatgpt')">
+            <span class="model-icon"><img src="https://chatgpt.com/favicon.ico" alt="ChatGPT"></span>
+            ChatGPT
+          </button>
+          <button class="model-pill" data-model="grok" style="--model-color: #FFFFFF; --model-bg: rgba(255,255,255,0.1);" onclick="selectModel('grok')">
+            <span class="model-icon"><img src="https://grok.com/favicon.ico" alt="Grok"></span>
+            Grok
+          </button>
+          <button class="model-pill" data-model="gemini" style="--model-color: #4285F4; --model-bg: rgba(66,133,244,0.15);" onclick="selectModel('gemini')">
+            <span class="model-icon"><img src="https://gemini.google.com/favicon.ico" alt="Gemini"></span>
+            Gemini
+          </button>
+        </div>
+        <div class="model-hint" id="modelHint">Careful, structured synthesis. Best at step-by-step reasoning and qualifying claims honestly.</div>
+      </div>
+
       <button class="generate-btn" id="generateBtn" onclick="generatePrompt()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         Generate Prompt
@@ -378,7 +461,7 @@
     <!-- Output -->
     <div class="output-card" id="outputCard">
       <div class="output-header">
-        <div class="output-label">Your analysis prompt</div>
+        <div class="output-model-badge" id="outputBadge"></div>
         <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           Copy
@@ -397,14 +480,14 @@
 
     <!-- Episode Section -->
     <div class="episode-section" id="episode">
-      <div class="episode-label">The episode</div>
+      <div class="section-label">The episode</div>
       <div class="episode-card">
         <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/iQRSZpBWoPE" title="Why Science Communication Fails — John Cook on The Great Simplification" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          <iframe src="https://www.youtube.com/embed/iQRSZpBWoPE" title="Why Science Communication Fails -- John Cook on The Great Simplification" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="episode-info">
           <div class="episode-title">Why Science Communication Fails: How to Break Down Misleading Arguments and Inoculate Against Misinformation</div>
-          <div class="episode-guest">John Cook — Senior Research Fellow, University of Melbourne &middot; 1h 23m</div>
+          <div class="episode-guest">John Cook -- Senior Research Fellow, University of Melbourne &middot; 1h 23m</div>
           <div class="episode-desc">Throwing facts at misinformation doesn't work, but teaching people to recognize the techniques of misinformation does. John Cook explains the FLICC framework, logic-based inoculation, and why the aversion to being tricked is more universal than any ideological commitment.</div>
           <a href="https://www.thegreatsimplification.com/episode/212-john-cook" target="_blank" rel="noopener" class="episode-link">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -423,43 +506,178 @@
   </div>
 
   <script>
+    let selectedModel = 'claude';
+
+    const models = {
+      claude: {
+        name: 'Claude',
+        hint: 'Careful, structured synthesis. Best at step-by-step reasoning and qualifying claims honestly.',
+        icon: 'https://claude.ai/favicon.ico',
+      },
+      chatgpt: {
+        name: 'ChatGPT',
+        hint: 'Deep thinking and web browsing. Can search for sources in real time and reason through complex arguments.',
+        icon: 'https://chatgpt.com/favicon.ico',
+      },
+      grok: {
+        name: 'Grok',
+        hint: 'Real-time X/Twitter integration. Strongest for tracking how claims spread on social media.',
+        icon: 'https://grok.com/favicon.ico',
+      },
+      gemini: {
+        name: 'Gemini',
+        hint: 'Broad cross-referencing via Google Search. Good at comparing claims against multiple sources.',
+        icon: 'https://gemini.google.com/favicon.ico',
+      },
+    };
+
+    function selectModel(model) {
+      selectedModel = model;
+      document.querySelectorAll('.model-pill').forEach(pill => {
+        pill.classList.toggle('active', pill.dataset.model === model);
+      });
+      document.getElementById('modelHint').textContent = models[model].hint;
+    }
+
+    function getPrompt(model, sourceBlock) {
+      const prompts = {
+        claude: `You are a critical media analyst applying John Cook's FLICC framework (Fake experts, Logical fallacies, Impossible expectations, Cherry picking, Conspiracy theories) to systematically analyze content for misinformation.
+
+${sourceBlock}
+
+Work through this step by step:
+
+STEP 1: CLAIM EXTRACTION
+Read through the content carefully. List every distinct factual claim. For each one, classify it as: verifiable fact, opinion, speculation, or unfalsifiable. If a claim is presented as fact but is actually opinion, flag that.
+
+STEP 2: FLICC ANALYSIS
+For each major claim, check whether any of these five techniques are being used:
+- Fake experts: Are people cited who convey authority they don't actually possess? Are credentials real but from an unrelated field?
+- Logical fallacies: Single cause fallacy? False dichotomy? Anecdote treated as data? Post hoc reasoning?
+- Impossible expectations: Does the argument demand unrealistic standards of proof from one side while accepting low standards from the other?
+- Cherry picking: Is a narrow slice of data being presented while ignoring the broader body of evidence?
+- Conspiracy theories: Are shadowy actors invoked to explain away inconvenient evidence?
+
+STEP 3: SOURCE CREDIBILITY
+Who wrote or published this? What are their documented credentials, funding sources, and track record? Are primary sources cited, or is this secondhand reporting? If sources are cited, are they accurately represented?
+
+STEP 4: NARRATIVE FRAMING
+What story is this content trying to tell? What emotional responses does it try to trigger? What information is conspicuously absent? Is there a false balance being created between well-supported and fringe positions?
+
+STEP 5: CONFIDENCE ASSESSMENT
+For each finding above, rate your confidence: HIGH (clear evidence), MODERATE (strong indicators but some ambiguity), or LOW (possible but uncertain). Where you're uncertain, say so directly rather than hedging with vague language.
+
+STEP 6: BOTTOM LINE
+Summarize: overall reliability on a scale from "well-sourced and accurate" to "heavily misleading," which FLICC techniques (if any) are present, and what a reader should know before sharing this content.`,
+
+        chatgpt: `You are a critical media analyst with web browsing capabilities. I need you to analyze the following content for misinformation using John Cook's FLICC framework (Fake experts, Logical fallacies, Impossible expectations, Cherry picking, Conspiracy theories).
+
+${sourceBlock}
+
+Use your ability to search the web and think deeply about this. Here's what I need:
+
+1. CLAIM INVENTORY
+List every distinct factual claim. For each, classify as verifiable, opinion, or speculation.
+
+2. LIVE FACT-CHECK
+For each major claim, search for the original sources cited. Are they real? Are they accurately represented? Search for fact-checks that already exist on these claims. Check whether the cited experts actually have relevant credentials. Look up whether the data referenced matches what the original studies or datasets actually show.
+
+3. FLICC TECHNIQUE SCAN
+Check for these five misinformation techniques:
+- Fake experts (credentials that don't match the claim being made)
+- Logical fallacies (single cause, false dichotomy, anecdote as data)
+- Impossible expectations (demanding unrealistic proof from one side)
+- Cherry picking (selective data that ignores the broader picture)
+- Conspiracy theories (shadowy actors invoked to dismiss evidence)
+
+4. COUNTER-EVIDENCE
+For each questionable claim, find and present what the strongest available evidence actually says. Link to sources where possible. Don't just assert the claim is wrong; show what the data says.
+
+5. NARRATIVE & OMISSION ANALYSIS
+What story is this trying to tell? What's left out? What would change if the omitted context were included?
+
+6. VERDICT
+Rate overall reliability from "well-sourced and accurate" to "heavily misleading." Be specific about which parts are solid and which aren't. Don't flatten everything into one rating if some sections are reliable and others aren't.`,
+
+        grok: `You are a critical media analyst with real-time access to X (Twitter) and current news. Analyze the following content for misinformation using John Cook's FLICC framework (Fake experts, Logical fallacies, Impossible expectations, Cherry picking, Conspiracy theories).
+
+${sourceBlock}
+
+Here's what I need, and lean into your real-time capabilities:
+
+1. CLAIM INVENTORY
+List every distinct factual claim. Classify each as verifiable, opinion, or speculation.
+
+2. SOCIAL SPREAD ANALYSIS
+Search X/Twitter for how the claims in this content are spreading. Who's amplifying them? Are there coordinated patterns, bot activity, or known disinformation accounts pushing these narratives? Is there a noticeable gap between expert reaction and popular reception?
+
+3. FLICC TECHNIQUE SCAN
+Check for: Fake experts, Logical fallacies, Impossible expectations, Cherry picking, Conspiracy theories. Be blunt about what you find.
+
+4. REAL-TIME CONTEXT
+What has happened since this was published that adds context? Have any of the claims been confirmed or debunked? Are there breaking developments that change the picture? What are credible journalists and subject-matter experts saying about these claims right now?
+
+5. SOURCE CREDIBILITY
+Who's behind this content? What's their track record? Do they have documented conflicts of interest or a history of misleading claims? Check their recent X activity for patterns.
+
+6. NARRATIVE FRAMING
+What emotional response is this trying to trigger? What's missing? Is this part of a larger coordinated narrative push you can see evidence of?
+
+7. BOTTOM LINE
+Don't hedge. Rate reliability from "well-sourced and accurate" to "heavily misleading." Call out which specific claims are the biggest problems and why.`,
+
+        gemini: `You are a critical media analyst with broad search and cross-referencing capabilities. Analyze the following content for misinformation using John Cook's FLICC framework (Fake experts, Logical fallacies, Impossible expectations, Cherry picking, Conspiracy theories).
+
+${sourceBlock}
+
+Use your ability to cross-reference across many sources, but be rigorous about it. Here's what I need:
+
+1. CLAIM INVENTORY
+List every distinct factual claim. Classify each as verifiable, opinion, or speculation.
+
+2. MULTI-SOURCE CROSS-REFERENCE
+For each major claim, find what multiple independent sources say. Compare coverage across news outlets, academic sources, and fact-checking organizations. Note where sources agree and where they diverge. Important: for each cross-reference you cite, rate your confidence that the source is real and accurately represented. If you're pulling something from memory rather than a confirmed source, flag it explicitly.
+
+3. FLICC TECHNIQUE SCAN
+Check for: Fake experts, Logical fallacies, Impossible expectations, Cherry picking, Conspiracy theories. For each technique found, explain the specific mechanism being used and provide a concrete example from the content.
+
+4. DATA VERIFICATION
+If the content cites statistics, studies, or data: trace them back to the original source. Does the original say what the content claims it says? Is the data being presented with appropriate context, or has it been stripped of caveats and qualifiers?
+
+5. CONSENSUS CHECK
+Where does scientific or expert consensus actually stand on the major claims? Distinguish between claims that contradict well-established consensus, claims in genuinely debated areas, and claims on topics where expert opinion is still forming. Do not present fringe positions as having equal weight to mainstream evidence unless there is genuine scientific debate.
+
+6. NARRATIVE & OMISSION ANALYSIS
+What story is this telling? What framing choices shape how the reader interprets the facts? What context is missing that would change the reader's takeaway?
+
+7. BOTTOM LINE
+Rate overall reliability from "well-sourced and accurate" to "heavily misleading." For each major finding, note your confidence level (HIGH / MODERATE / LOW). Where you're uncertain, say so clearly rather than presenting a tentative conclusion as a firm one.`
+      };
+
+      return prompts[model];
+    }
+
     function generatePrompt() {
       const input = document.getElementById('sourceInput').value.trim();
       if (!input) return;
 
       const isURL = /^https?:\/\//i.test(input);
-
       const sourceBlock = isURL
-        ? `Source URL: ${input}`
+        ? `Source URL: ${input}\n\nPlease access and analyze the content at this URL.`
         : `Article text:\n"""\n${input}\n"""`;
 
-      const prompt = `You are a critical media analyst. I want you to carefully analyze the following content for misinformation, misleading framing, and unsupported claims.
-
-${sourceBlock}
-
-Please provide:
-
-1. CLAIM INVENTORY — List every distinct factual claim made in this content. For each claim, note whether it is verifiable, opinion, or speculation.
-
-2. SOURCE ANALYSIS — Who is making these claims? What are their credentials, potential conflicts of interest, or known biases? Are primary sources cited, or is this secondhand reporting?
-
-3. EVIDENCE CHECK — For each major claim, what does the available evidence actually say? Flag any claims that are misleading, lack context, cherry-pick data, or contradict established research.
-
-4. NARRATIVE FRAMING — What story is this content trying to tell? What emotional responses does it attempt to trigger? What information is conspicuously absent?
-
-5. BOTTOM LINE — Summarize the overall reliability of this content. Rate it on a scale from "well-sourced and accurate" to "heavily misleading" and explain your reasoning.
-
-Be specific. Cite your reasoning. Distinguish between what is factually wrong versus what is misleading through omission or framing.`;
+      const prompt = getPrompt(selectedModel, sourceBlock);
+      const model = models[selectedModel];
 
       document.getElementById('promptOutput').textContent = prompt;
+      document.getElementById('outputBadge').innerHTML = `<img src="${model.icon}" alt="${model.name}"> Prompt optimized for ${model.name}`;
       document.getElementById('outputCard').classList.add('visible');
 
-      // Reset copy button state
+      // Reset copy button
       const copyBtn = document.getElementById('copyBtn');
       copyBtn.classList.remove('copied');
       copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
 
-      // Smooth scroll to output
       document.getElementById('outputCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
@@ -476,7 +694,7 @@ Be specific. Cite your reasoning. Distinguish between what is factually wrong ve
       });
     }
 
-    // Allow Cmd/Ctrl+Enter to generate
+    // Cmd/Ctrl+Enter to generate
     document.getElementById('sourceInput').addEventListener('keydown', function(e) {
       if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
         generatePrompt();
